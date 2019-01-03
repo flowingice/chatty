@@ -1,8 +1,3 @@
-FORK
-=====
-
-This for just adds small search bar for users in bottom.
-
 Chatty
 ======
 
