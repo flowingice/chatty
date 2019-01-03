@@ -34,15 +34,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.regex.Pattern;
-import javax.swing.AbstractAction;
-import javax.swing.InputMap;
-import javax.swing.JPanel;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
-import javax.swing.Timer;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -68,6 +60,10 @@ public class Channel extends JPanel {
     private final StyleServer styleManager;
     private final MainGui main;
     private Type type;
+
+    //FlowingIce
+    private final JSplitPane userPane;
+    private final JTextPane userSearch;
     
     private boolean userlistEnabled = true;
     private int previousUserlistWidth;
@@ -110,10 +106,33 @@ public class Channel extends JPanel {
         users = new UserList(contextMenuListener, main.getUserListener());
         updateUserlistSettings();
         userlist = new JScrollPane(users);
-        
+
+        userSearch = new JTextPane();
+        userPane = new JSplitPane(SwingConstants.HORIZONTAL,userlist,userSearch);
+        userPane.setResizeWeight(0.999);
+        userPane.setDividerSize(0);
+        int condition = JComponent.WHEN_FOCUSED;
+        InputMap iMap = userSearch.getInputMap(condition);
+        ActionMap aMap = userSearch.getActionMap();
+
+        String enter = "enter";
+        iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), enter);
+        aMap.put(enter, new AbstractAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println(users.getData());
+                System.out.println(userSearch.getText());
+                users.setFilteredData(userSearch.getText());
+                System.out.println(users.getData());
+                users.resort();
+                System.out.println("---");
+            }
+        });
+
         
         // Split Pane
-        mainPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,west,userlist);
+        mainPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,west,userPane);
         mainPane.setResizeWeight(1);
         mainPane.setDividerSize(DIVIDER_SIZE);
         
@@ -614,9 +633,7 @@ public class Channel extends JPanel {
     
     // Messages
     
-    public boolean search(String searchText) {
-        return text.search(searchText);
-    }
+    public boolean search(String searchText) { return text.search(searchText); }
     
     public void resetSearch() {
         text.resetSearch();

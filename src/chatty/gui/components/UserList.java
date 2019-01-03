@@ -121,7 +121,13 @@ public class UserList extends JList<User> {
     public ArrayList<User> getData() {
         return data.getData();
     }
-    
+    public void setFilteredData(String param) {
+        if(param.length() > 0)
+            data.setFilteredData(param);
+        else
+            data.unfilterData();
+    }
+
     /**
      * Open context menu for this user, if the event points at one.
      * 
