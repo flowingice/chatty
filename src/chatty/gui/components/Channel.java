@@ -121,12 +121,8 @@ public class Channel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                System.out.println(users.getData());
-                System.out.println(userSearch.getText());
                 users.setFilteredData(userSearch.getText());
-                System.out.println(users.getData());
                 users.resort();
-                System.out.println("---");
             }
         });
 
