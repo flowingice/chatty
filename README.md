@@ -1,3 +1,7 @@
+FORK
+======
+This fork adds small text bar under list of users that filters users when enter is pressed.
+
 Chatty
 ======
 
