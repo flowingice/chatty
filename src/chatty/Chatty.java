@@ -1,7 +1,6 @@
 
 package chatty;
 
-import chatty.splash.Splash;
 import chatty.util.DateTime;
 import chatty.util.LogUtil;
 import chatty.util.MiscUtil;
@@ -9,7 +8,6 @@ import chatty.util.SingleInstance;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.SwingUtilities;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -54,7 +52,7 @@ public class Chatty {
      * as older (so 0.8.7b4 is older than 0.8.7).
      */
     public static final String VERSION = "0.9.4b"; // Remember changing the version in the help
-    
+
     /**
      * Enable Version Checker (if you compile and distribute this yourself, you
      * may want to disable this)

@@ -169,23 +169,8 @@ public class TwitchApi {
         followerManager.request(stream);
     }
 
-    public void getFollow(String stream, String streamID, String user, String userID) {
-        if (streamID != null && userID != null) {
-            requests.getFollowInfo(stream, streamID, user, userID);
-        } else {
-            userIDs.getUserIDsAsap(r -> {
-                if (r.hasError()) {
-                    resultListener.getUserFollowFailed(stream, user, RequestResultCode.FAILED);
-                } else {
-                    requests.getFollowInfo(stream, r.getId(stream), user, r.getId(user));
-                }
-            }, stream, user);
-        }
-
-    }
-
-    public Follower getCachedFollow(String stream, String streamID, String user, String userID) {
-        return followerManager.getCachedFollow(stream, streamID, user, userID);
+    public Follower getSingeFollower(String stream, String streamId, String user, String userId, boolean refresh) {
+        return followerManager.getSingleFollower(stream, streamId, user, userId, refresh);
     }
     
     public void getSubscribers(String stream) {

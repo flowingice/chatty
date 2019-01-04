@@ -80,13 +80,13 @@ public class UserInfoManager {
         }
     }
 
-    public void setChannelInfo(ChannelInfo info) {
+    public void setChannelInfo(String stream, ChannelInfo info) {
         for (UserInfo dialog : dialogs) {
-            dialog.setChannelInfo(info);
+            dialog.setChannelInfo(stream, info);
         }
     }
 
-    public void setFollowInfo(String stream, String user, Follower follow, TwitchApi.RequestResultCode result) {
+    public void setFollowInfo(String stream, String user, TwitchApi.RequestResultCode result, Follower follow) {
         for (UserInfo dialog : dialogs) {
             dialog.setFollowInfo(stream, user, follow, result);
         }
